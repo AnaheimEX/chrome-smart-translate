@@ -1,0 +1,82 @@
+<!doctype html>
+<!-- 扩展图标模板：由 tools/gen-icons.sh 用无头 Chrome 按 ?size=16|32|48|128 渲染成 PNG。 -->
+<!-- 设计：「晴空」天蓝渐变圆角方块 + 「译」字印章 + 右上角杏橙火花，与浮窗、设置页的品牌标识一致。 -->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        background: transparent;
+        overflow: hidden;
+      }
+      .icon {
+        position: relative;
+        width: var(--s);
+        height: var(--s);
+        border-radius: calc(var(--s) * 0.24);
+        background: linear-gradient(140deg, #5c9dff 0%, #2f74ff 52%, #1f8cf5 100%);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      /* 顶部高光与底部压暗，让方块有一点釉面质感 */
+      .icon::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(120% 80% at 20% 0%, rgba(255, 255, 255, 0.34), transparent 55%),
+          linear-gradient(180deg, transparent 55%, rgba(10, 40, 120, 0.18));
+      }
+      .icon::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: inset 0 0 0 calc(var(--s) / 64) rgba(255, 255, 255, 0.22);
+      }
+      .glyph {
+        position: relative;
+        color: #fff;
+        font: 600 var(--g) / 1 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+        transform: translateY(var(--dy));
+        text-shadow: 0 calc(var(--s) / 48) calc(var(--s) / 24) rgba(10, 40, 120, 0.32);
+      }
+      /* 火花：与网页上「译」浮标的杏橙菱形点呼应 */
+      .spark {
+        position: absolute;
+        top: calc(var(--s) * 0.1);
+        right: calc(var(--s) * 0.1);
+        width: calc(var(--s) * 0.11);
+        height: calc(var(--s) * 0.11);
+        border-radius: 50%;
+        background: #ffaa4d;
+        box-shadow: 0 0 calc(var(--s) / 14) rgba(255, 170, 77, 0.8);
+      }
+      /* 小尺寸：去掉阴影、描边与火花，字形更大更粗，保证工具栏 16px 下可辨认 */
+      .small .glyph {
+        font-weight: 700;
+        text-shadow: none;
+      }
+      .small.icon::after,
+      .small .spark {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="icon" id="icon"><span class="glyph">译</span><span class="spark"></span></div>
+    <script>
+      var size = Number(new URLSearchParams(location.search).get('size')) || 128;
+      var icon = document.getElementById('icon');
+      var small = size <= 32;
+      icon.style.setProperty('--s', size + 'px');
+      icon.style.setProperty('--g', Math.round(size * (small ? 0.74 : 0.62)) + 'px');
+      icon.style.setProperty('--dy', (size * 0.02).toFixed(2) + 'px');
+      if (small) icon.classList.add('small');
+    </script>
+  </body>
+</html>

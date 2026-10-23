@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>划词智能翻译 · 设置</title>
+    <link rel="stylesheet" href="ui.css" />
+    <style>
+      .wrap {
+        max-width: 620px;
+        margin: 0 auto;
+        padding: 48px 24px 40px;
+      }
+      .hero {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 0 4px 28px;
+      }
+      .hero .brand {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        font-size: 27px;
+      }
+      .hero h1 {
+        font-size: 22px;
+      }
+      .card {
+        padding: 24px;
+        margin-bottom: 16px;
+      }
+      .card-head {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+      .card-icon {
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 11px;
+        background: var(--pri-soft);
+        color: var(--pri);
+      }
+      .card-title {
+        flex: 1;
+        min-width: 0;
+      }
+      .card-head h2,
+      .card-head h2 label {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 650;
+        color: var(--text);
+      }
+      .card-head p {
+        margin: 2px 0 0;
+        font-size: 12.5px;
+        color: var(--text2);
+      }
+      .temperature {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .temperature > div {
+        flex: 1;
+      }
+      .temperature label {
+        margin: 0;
+      }
+      .temperature .hint {
+        margin-top: 2px;
+      }
+      .temperature input {
+        flex: none;
+        width: 96px;
+        text-align: center;
+      }
+      .account {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 16px;
+        margin-top: 4px;
+        padding-top: 20px;
+        border-top: 1px solid var(--divider);
+      }
+      .account-text {
+        flex: 1;
+        min-width: 220px;
+      }
+      .account-title {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .account .hint {
+        margin-top: 2px;
+      }
+      .account .status {
+        flex-basis: 100%;
+        margin-top: 0;
+      }
+      .savebar {
+        position: sticky;
+        bottom: 16px;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 20px;
+        padding: 10px 10px 10px 20px;
+        border: 1px solid var(--outline);
+        border-radius: 18px;
+        background: color-mix(in srgb, var(--surface) 80%, transparent);
+        -webkit-backdrop-filter: blur(18px) saturate(1.5);
+        backdrop-filter: blur(18px) saturate(1.5);
+        box-shadow: var(--shadow-pop);
+      }
+      .savebar .status {
+        flex: 1;
+        min-width: 0;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+      .savebar #saveStatus:empty {
+        display: flex;
+        color: var(--text3);
+      }
+      .savebar #saveStatus:empty::before {
+        content: '修改后点击保存即可生效';
+        width: auto;
+        height: auto;
+        margin: 0;
+        background: none;
+      }
+      .savebar .btn {
+        min-width: 116px;
+        height: 42px;
+      }
+      @media (max-width: 480px) {
+        .wrap {
+          padding: 28px 14px 24px;
+        }
+        .card {
+          padding: 20px 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <div class="brand" aria-hidden="true">译</div>
+        <div>
+          <h1>划词智能翻译</h1>
+          <p class="subtitle">选中网页文字，点「译」即可在原页面浮窗中阅读简体中文译文</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="card-head">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+          </div>
+          <div class="card-title">
+            <h2>翻译服务</h2>
+            <p>选择 ChatGPT 订阅或兼容 API</p>
+          </div>
+        </div>
+        <div class="field">
+          <label for="provider">服务类型</label>
+          <select id="provider">
+            <option value="codex">ChatGPT 订阅</option>
+            <option value="api">兼容 OpenAI 的 API</option>
+          </select>
+        </div>
+        <div id="codexSettings">
+          <div class="field">
+            <label for="codexModel">订阅模型</label>
+            <select id="codexModel" disabled><option value="">请先读取模型列表</option></select>
+            <div class="row codex-actions">
+              <button id="loginCodexBtn" class="btn btn-tonal" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg>
+                登录 ChatGPT 订阅
+              </button>
+              <button id="fetchCodexBtn" class="btn btn-tonal" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
+                读取模型
+              </button>
+            </div>
+            <p class="hint">点击登录，在 ChatGPT 网页完成授权。登录成功后，选择模型并保存。</p>
+            <div id="codexStatus" class="status" role="status" aria-live="polite"></div>
+            <details><summary>无法打开登录页？</summary><p class="hint">确认已安装订阅连接，并在扩展管理页重新加载此扩展，然后重试登录。</p></details>
+          </div>
+        </div>
+        <div id="apiSettings">
+          <div class="field">
+            <label for="baseUrl">Base URL</label>
+            <input id="baseUrl" type="text" placeholder="https://api.openai.com/v1" />
+            <p class="hint">填写到 /v1 这一层；扩展会在其后追加 /chat/completions 与 /models。</p>
+          </div>
+          <div class="field">
+            <label for="apiKey">API Key</label>
+            <div class="input-affix">
+              <input id="apiKey" type="password" placeholder="sk-..." autocomplete="off" spellcheck="false" />
+              <button id="pwToggle" class="affix-btn" type="button">显示</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="model">模型</label>
+            <div class="row model-row">
+              <div class="input-affix has-icon">
+                <input id="model" type="text" placeholder="如 gpt-4o-mini" autocomplete="off" spellcheck="false" />
+                <button id="modelToggle" class="affix-btn" type="button" aria-label="展开模型列表" title="展开模型列表">▾</button>
+              </div>
+              <button id="fetchBtn" class="btn btn-tonal" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8"/><path d="M21 3v5h-5"/></svg>
+                拉取模型
+              </button>
+              <div id="modelPicker" class="model-picker" hidden></div>
+            </div>
+            <p class="hint">点「拉取模型」按 Base URL + Key 获取列表，或直接手动输入模型 ID。</p>
+            <div id="modelStatus" class="status"></div>
+          </div>
+        </div>
+        <div class="field temperature" id="temperatureField">
+          <div>
+            <label for="temperature">温度</label>
+            <p class="hint">仅用于兼容 OpenAI 的 API。</p>
+          </div>
+          <input id="temperature" type="number" step="0.1" min="0" max="2" />
+        </div>
+        <div class="account">
+          <div class="account-text">
+            <div class="account-title">账号与凭据</div>
+            <p id="logoutHint" class="hint">退出此扩展的账号，保留已保存的翻译设置。</p>
+          </div>
+          <button id="logoutBtn" class="btn btn-danger" type="button">退出扩展登录</button>
+          <div id="logoutStatus" class="status" role="status" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head">
+          <div class="card-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>
+          </div>
+          <div class="card-title">
+            <h2><label for="translationPrompt">翻译 Prompt</label></h2>
+            <p>两种服务共用的唯一预设</p>
+          </div>
+          <button id="resetPromptBtn" class="btn btn-text" type="button">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"/><path d="M3 3v5h5"/></svg>
+            恢复预设
+          </button>
+        </div>
+        <textarea id="translationPrompt" rows="7" maxlength="4000" spellcheck="false"></textarea>
+        <p class="hint">默认把选中文字翻译成简体中文；可直接编辑并保存，最多 4000 个字符。</p>
+      </section>
+
+      <div class="savebar">
+        <div id="saveStatus" class="status"></div>
+        <button id="saveBtn" class="btn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>
+          保存
+        </button>
+      </div>
+    </div>
+    <script src="prompt.js"></script>
+    <script src="options.js"></script>
+  </body>
+</html>
