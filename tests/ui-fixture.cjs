@@ -122,6 +122,10 @@ const server = http.createServer((request, response) => {
       '<script src="options.js"></script>',
       '<script src="/fixture.js"></script><script src="background.js"></script><script src="options.js"></script>',
     );
+    else if (name === '/src/popup.html') data = data.toString().replace(
+      '<script src="popup.js"></script>',
+      '<script src="/fixture.js"></script><script src="/src/prompt.js"></script><script src="/src/background.js"></script><script src="popup.js"></script>',
+    );
     response.setHeader('Content-Type', ({ '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css', '.png': 'image/png' })[path.extname(file)]);
     response.end(data);
   } catch (_) { response.writeHead(404); response.end(); }

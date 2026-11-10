@@ -159,3 +159,29 @@ node --test safari/Tests/native-transport.test.cjs
 ```
 
 这些测试主要模拟服务边界。UI 交互仍应通过选区、翻译按钮、字号按钮、缩放柄、复制/关闭等用户操作确认。验收报告分别说明：源码检查、模拟页面、Safari 构建/签名、实际浏览器操作、真实账户请求。
+
+## 4.4.0 — 弹窗文本翻译（中文 → 英语/日语）
+
+新增功能（用户需求：把输入框中输入的中文翻译成英文或日文）：
+
+- `src/popup.html` / `src/popup.js`：弹窗新增文本输入区 + 目标语言下拉（英语/日语）+ 翻译按钮。
+  输入中文后点「翻译」（或按 Enter），结果流式显示在输入区下方，可一键复制。
+  与划词翻译共用同一个翻译端口与服务（ChatGPT 订阅或兼容 API），未登录/未配置时给出提示。
+- `src/prompt.js`：新增 `TARGET_PROMPTS`（English/Japanese）。`prepareTranslation` 支持
+  `context.target`：弹窗指定目标语言时，该语言预设**覆盖**用户提示词里固定的翻译方向；
+  未指定时仍走设置页保存的提示词。目标语言同样被 `sanitizeContext` 清洗并限长（50 字符），
+  任意目标语言字符串不会原样进入系统提示词（未命中预设时回退英语）。
+- `src/background.js`：翻译端口（`name: 'translate'`）接受来自扩展自身页面的连接
+  （弹窗页 URL 为 `chrome-extension://`，不再强制 `https?://`）。`sender.id` 校验不变。
+- `src/ui.css`：新增 `.translate-section` 相关样式（与现有「晴空」设计语言一致）。
+- `tests/ui-fixture.cjs`：本地模拟页现在也注入 popup 页（fixture + prompt.js + background.js），
+  可在 `http://127.0.0.1:39617/src/popup.html` 手动验收弹窗翻译。
+- `tests/translation.test.cjs`：新增 2 个测试（弹窗端口被接受 + 目标语言选择提示词；
+  未设目标保持自定义提示词、注入式目标回退英语）。
+- `manifest.json` 版本升至 4.4.0。
+
+验收记录：
+
+- `node tests/*.test.cjs`：translation 25、bridge 17、latency-prompt 4、install 1，全部通过。
+- 本地无头 Chrome（ui-fixture）E2E：空输入提示、英语/日语翻译、流式显示、复制按钮、
+  Enter 提交、原启用开关均正常；弹窗布局无横向溢出（body 高 421px）。

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "划词智能翻译",
-  "version": "4.3.3",
+  "version": "4.4.0",
   "description": "网页划词翻译为简体中文；使用 ChatGPT 订阅模型，或兼容 OpenAI 的 API。",
   "icons": {
     "16": "icons/icon16.png",

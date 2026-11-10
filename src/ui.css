@@ -216,6 +216,85 @@ textarea {
   flex: 1;
 }
 
+/* 弹窗文本翻译：中文输入 → 英文/日语 */
+.translate-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--divider);
+}
+.translate-section textarea {
+  width: 100%;
+  height: 80px;
+  min-height: 0;
+  padding: 10px 12px;
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  resize: none;
+  border-radius: 12px;
+  border: 1px solid var(--outline);
+  background-color: var(--field);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+}
+.translate-section textarea::placeholder {
+  color: var(--text3);
+}
+.translate-section textarea:hover:not(:disabled):not(:focus) {
+  border-color: var(--outline-strong);
+}
+.translate-section textarea:focus {
+  border-color: var(--pri);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 4px var(--focus);
+}
+.translate-section textarea:disabled {
+  opacity: 0.6;
+}
+.translate-row {
+  gap: 10px;
+  margin-top: 10px;
+}
+.translate-row > select {
+  flex: 1;
+}
+.translate-row > button {
+  flex: 1;
+}
+.translate-result {
+  color-scheme: light dark;
+}
+#translateStatus:not(:empty) {
+  margin-bottom: 10px;
+}
+.translate-text {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+  word-break: break-word;
+}
+.translate-copy {
+  font-size: 12px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 9px;
+  background: var(--pri-soft);
+  color: var(--pri);
+  border: 0;
+  cursor: pointer;
+}
+.translate-copy:hover {
+  background: var(--pri-soft-2);
+}
+.translate-copy:active:not(:disabled) {
+  filter: brightness(0.96);
+}
+.translate-copy:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--focus);
+}
+
 /* 输入框内嵌按钮（显示密钥、展开模型列表） */
 .input-affix {
   position: relative;

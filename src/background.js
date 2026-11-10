@@ -366,7 +366,9 @@ async function callCompatibleApi(text, system, cfg, signal, port) {
 }
 
 chrome.runtime.onConnect.addListener(function (port) {
-  if (port.name !== 'translate' || !port.sender || port.sender.id !== chrome.runtime.id || !/^https?:\/\//.test(port.sender.url || '')) return;
+  // Only the extension itself can connect: content page or the extension's own
+  // pages (popup, options). Hidden service workers share the routing table.
+  if (port.name !== 'translate' || !port.sender || port.sender.id !== chrome.runtime.id) return;
   var started = false;
   var controller = new AbortController();
   port.onDisconnect.addListener(function () { controller.abort(); });
