@@ -2,3 +2,5 @@
 node_modules/
 *.log
 bridge/tokens.json*
+.claude/
+

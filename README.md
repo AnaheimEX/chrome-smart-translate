@@ -52,3 +52,11 @@ Agent 接手请先读 [HANDOFF.md](HANDOFF.md)，其中记录当前版本、安�
 - 浏览器内部页、扩展商店、部分 PDF 或 iframe 页面不支持划词浮标。
 
 相关检查：`node --test tests/install.test.cjs tests/bridge.test.cjs tests/translation.test.cjs`。使用模拟授权和接口，不读取真实凭据、不消耗模型额度。
+
+## 参与贡献
+
+欢迎提交 Issue 和 Pull Request。提交前请先运行上面的检查命令，并确保不包含任何真实凭据或 API Key。
+
+## 许可协议
+
+本项目以 [MIT License](LICENSE) 开源，可自由使用、修改、分发和商用，保留版权与许可声明即可。
