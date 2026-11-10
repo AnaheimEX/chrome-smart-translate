@@ -24,7 +24,7 @@
 | Safari 生成资源 | `safari/WebExtension/`、`safari/Project/Smart Translate Safari/` |
 | Safari 构建缓存 | `safari/build/`，不是维护源 |
 
-原先的 `~/Downloads/Project/chrome-smart-translate` 已不是当前路径。
+项目目录曾变动过，以下一律以本表的路径为准。
 
 本会话还处理过其他 Safari 扩展；本交接不包含它们。Vimium C 已按用户要求卸载，应用及源码移至废纸篓，不要恢复或把它的修复混入本项目。
 
@@ -128,11 +128,11 @@ ditto 'safari/dist/Smart Translate Safari.app' '../Smart Translate Safari.app'
 codesign --verify --deep --strict '../Smart Translate Safari.app'
 
 # 更新 LaunchServices / Safari 扩展注册
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f '~/Downloads/Project/Safari-extensions/Smart Translate Safari.app'
-/usr/bin/pluginkit -a '~/Downloads/Project/Safari-extensions/Smart Translate Safari.app/Contents/PlugIns/Smart Translate Safari Extension.appex'
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "$HOME/Downloads/Project/Safari-extensions/Smart Translate Safari.app"
+/usr/bin/pluginkit -a "$HOME/Downloads/Project/Safari-extensions/Smart Translate Safari.app/Contents/PlugIns/Smart Translate Safari Extension.appex"
 ```
 
-应用标识 `com.example.smarttranslate.safari`；扩展标识 `com.example.smarttranslate.safari.Extension`。当前为本机 ad-hoc 签名，不是已公证的发布包。Safari 启用相关说明见 `safari/README.md`；不要把未签名扩展选项或网站访问权限问题当作 JS 故障。
+应用标识 `com.example.smarttranslate.safari`；扩展标识 `com.example.smarttranslate.safari.Extension`（示例写法，实际值替换自己的反向域名）。当前为本机 ad-hoc 签名，不是已公证的发布包。Safari 启用相关说明见 `safari/README.md`；不要把未签名扩展选项或网站访问权限问题当作 JS 故障。
 
 Chrome 更新后重新加载扩展并刷新旧网页。Safari 更新后需要退出重开并刷新旧网页；已经注入的旧内容脚本不会因磁盘文件更新而自动替换。用户之前多次要求先交付代码、自己稍后验证，不要自动操作其 Safari 会话。
 

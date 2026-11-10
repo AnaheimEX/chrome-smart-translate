@@ -1,7 +1,7 @@
 # Chrome 划词智能翻译扩展 — 设计文档
 
 - 日期：2026-06-11
-- 产物目录：`~/Downloads/Project/Claude/chrome-smart-translate`
+- 产物目录：`~/Downloads/Project/chrome-smart-translate`
 - 状态：设计已确认，待写实现计划
 
 ## 1. 目标
